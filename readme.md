@@ -1,4 +1,4 @@
-# S2R Watermarking System
+# S2R
 
 This repository implements a S2R image watermarking framework. It supports model training, watermark encoding, physical shooting simulation, geometric correction, and message decoding.
 
