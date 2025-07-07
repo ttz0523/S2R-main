@@ -105,21 +105,3 @@ Then run:
 ```bash
 python en_de_test.py
 ```
-
-## Directory Overview
-
-```pgsql
-.
-├── train.py
-├── en_de_test.py
-├── PespectiveTransformation.py
-├── train_setting.json
-├── en_de_test_setting.json
-├── datasets_mini/
-├── testsets_100/
-├── test_en/
-├── test_sc/
-├── test_pes/
-└── results/
-```
-
