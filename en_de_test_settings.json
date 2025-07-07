@@ -1,0 +1,18 @@
+{
+  "result_folder": "SCNG_test/",
+  "model_epoch": 150,
+  "is_differentiable": true,
+  "is_encode": false,
+  "with_diffusion": false,
+  "strength_factor": 1.0,
+  "Ico_dataset_path": "testsets_100/",
+  "Ien_path": "results/SCNG_test/test_pes",
+  "M_txt_path": "results/SCNG_test/test_de.txt",
+  "H": 128,
+  "W": 128,
+  "message_length": 64,
+  "save_images_number": 1,
+  "noise_layers": [
+    "Identity()"
+  ]
+}

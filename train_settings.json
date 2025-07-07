@@ -1,0 +1,18 @@
+{
+  "project_name": "Base-main",
+  "is_differentiable": true,
+  "epoch_number": 150,
+  "batch_size": 16,
+  "train_continue": false,
+  "train_continue_path": "/",
+  "train_continue_epoch": 44,
+  "dataset_path": "datasets_mini/",
+  "save_images_number": 2,
+  "H": 128,
+  "W": 128,
+  "message_length": 64,
+  "lr": 1e-3,
+  "noise_layers": [
+    "SCNG()"
+  ]
+}

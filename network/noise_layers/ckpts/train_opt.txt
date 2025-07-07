@@ -1,0 +1,51 @@
+----------------- Options ---------------
+                    TestD: False                         	[default: None]
+             aspect_ratio: 1.0                           
+               batch_size: 1                             
+          checkpoints_dir: network/noise_layers/ckpts    
+                crop_size: 256                           
+                 dataroot: None                          
+             dataset_mode: unaligned                     
+                    delta: 0                             
+                direction: AtoB                          
+          display_winsize: 500                           
+                    epoch: latest                        
+                     eval: False                         
+                  gpu_ids: 0                             
+                init_gain: 0.02                          
+                init_type: normal                        
+                 input_nc: 3                             
+                  isTrain: False                         	[default: None]
+                load_iter: 0                             	[default: 0]
+                load_size: 256                           
+         max_dataset_size: inf                           
+                    model: blur2blur                     
+               n_layers_D: 3                             
+                     name:                               
+                      ndf: 64                            
+                     netD: basic                         
+                     netG: mimounetp                     
+                      ngf: 64                            
+                       nl: relu                          
+               no_dropout: False                         
+                  no_flip: False                         
+                     norm: instance                      
+                   num_Ds: 2                             
+                 num_test: -1                            
+              num_threads: 4                             
+                       nz: 512                           
+                output_nc: 3                             
+                    phase: train                         
+              preprocessA: resize_and_crop               
+              preprocessB: resize_and_crop               
+                    ratio: 0.6                           
+              results_dir: ./results/                    
+           serial_batches: False                         
+                   suffix:                               
+                     type: test                          
+          use_tensorboard: False                         
+                use_wandb: False                         
+                  verbose: False                         
+       wandb_project_name: Blur2Blur                     
+                where_add: all                           
+----------------- End -------------------
