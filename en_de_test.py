@@ -49,7 +49,7 @@ if is_encode:
             # use device to compute
             images, messages = images.to(network.device), message.to(network.device)
 
-            encoded_images, Yl, LH, HL, HH, Yl_en, LH_en, HL_en, HH_en = network.encoder_decoder.module.encoder(images,
+            encoded_images = network.encoder_decoder.module.encoder(images,
                                                                                                                 messages)
             encoded_images = images + (encoded_images - image) * strength_factor
             noised_images = network.encoder_decoder.module.noise([encoded_images, images])
