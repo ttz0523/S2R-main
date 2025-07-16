@@ -2,7 +2,7 @@
   "project_name": "Base-main",
   "is_differentiable": true,
   "epoch_number": 150,
-  "batch_size": 16,
+  "batch_size": 8,
   "train_continue": false,
   "train_continue_path": "/",
   "train_continue_epoch": 44,

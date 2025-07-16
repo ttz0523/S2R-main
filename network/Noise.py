@@ -1,5 +1,5 @@
 from . import *
-
+from .noise_layers import *
 
 class Noise(nn.Module):
 
