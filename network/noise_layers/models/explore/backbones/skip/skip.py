@@ -80,8 +80,6 @@ def skip(
             skip.add(nn.BatchNorm2d(num_channels_skip[i]))
             skip.add(get_activation(act_fun))
 
-        # skip.add(Concat(2, GenNoise(nums_noise[i]), skip_part))
-
         deeper.add(
             get_conv(
                 input_depth,

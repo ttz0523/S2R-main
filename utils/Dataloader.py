@@ -42,11 +42,11 @@ class TDataset(Dataset):
 			try:
 				image = Image.open(os.path.join(self.path, self.list[index])).convert("RGB")  # 尝试打开图像文件
 				image = self.transform_image(image)
-			except OSError:  # 捕获文件打开错误，可能是非图像文件
-				image = None  # 返回None跳过该文件
+			except OSError:
+				image = None
 			if image is not None:
 				return image
-			# print("dataloader : skip index", index)
+
 			index += 1
 
 	def __len__(self):

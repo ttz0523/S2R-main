@@ -19,7 +19,7 @@ class DWTBlock(nn.Module):
     def forward(self, image):
         image_before_dwt = self.first_conv(image)
         x = image_before_dwt
-        Yl, Yh = self.dwt_forward(image_before_dwt)  # Yl为低频子带, Yh为三个高频子带
+        Yl, Yh = self.dwt_forward(image_before_dwt)
         Yl = self.ll_conv(Yl)
         LH = Yh[0][:, :, 0]
         HL = Yh[0][:, :, 1]
@@ -31,7 +31,7 @@ class DWTBlock(nn.Module):
             Yh[0][:, :, 0] = LH
             Yh[0][:, :, 1] = HL
             Yh[0][:, :, 2] = HH
-        image_after_dwt = self.dwt_inverse((Yl, Yh))  # 逆DWT
+        image_after_dwt = self.dwt_inverse((Yl, Yh))
         image_after_dwt = image_after_dwt + x
         output = self.last_conv(image_after_dwt)
         return output, Yl, LH, HL, HH

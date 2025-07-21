@@ -23,11 +23,6 @@ class Decoder(nn.Module):
 
 		self.final_layer = ConvBNRelu(channels, 1)
 
-		# self.message_duplicate_layer = nn.Sequential(
-		# 	nn.LayerNorm(message_length),
-		# 	nn.Linear(message_length, message_length),
-		# )
-
 	def forward(self, noised_image):
 		x = self.first_layers(noised_image)
 		x = self.keep_layers(x)

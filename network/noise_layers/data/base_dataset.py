@@ -87,11 +87,6 @@ def get_transform(
     if grayscale:
         transform_list.append(transforms.Grayscale(1))
     if "resize" in preprocess:
-        # if task == 'B':
-        #     osize = [2*opt.load_size, 2*opt.load_size]
-        # else:
-        # osize = [opt.load_size, opt.load_size]
-        # osize = 512
 
         transform_list.append(transforms.Resize(opt.load_size, method))
     elif "scale_width" in preprocess:
@@ -115,10 +110,7 @@ def get_transform(
     if convert:
 
         transform_list += [transforms.ToTensor()]
-        # if grayscale:
-        #     transform_list += [transforms.Normalize((0.5,), (0.5,))]
-        # else:
-        #     transform_list += [transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
+
     return transforms.Compose(transform_list)
 
 
@@ -151,7 +143,7 @@ def __scale_width(img, target_size, crop_size, method=transforms.InterpolationMo
         return img
     w = target_size
     h = int(max(target_size * oh / ow, crop_size))
-    # h = int(max(target_size * oh / ow,1))
+
     return img.resize((w, h), method)
 
 

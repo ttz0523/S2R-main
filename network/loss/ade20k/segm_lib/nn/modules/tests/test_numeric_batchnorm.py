@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-# File   : test_numeric_batchnorm.py
-# Author : Jiayuan Mao
-# Email  : maojiayuan@gmail.com
-# Date   : 27/01/2018
-# 
-# This file is part of Synchronized-BatchNorm-PyTorch.
 
 import unittest
 

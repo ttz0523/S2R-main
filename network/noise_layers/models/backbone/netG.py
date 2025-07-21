@@ -70,8 +70,7 @@ class G_Unet_add_input(nn.Module):
 
     def forward(self, x, z=None):
         if self.nz > 0:
-            # z_img = z.view(z.size(0), z.size(1), 1, 1).expand(
-            #     z.size(0), z.size(1), x.size(2), x.size(3))
+
             z_img = F.interpolate(z, size=(x.size(2), x.size(3)), mode="bilinear", align_corners=False)
             x_with_z = torch.cat([x, z_img], 1)
         else:
@@ -312,10 +311,9 @@ class UnetBlock_with_z(nn.Module):
         self.up = nn.Sequential(*up)
 
     def forward(self, x, z):
-        # print(x.size())
+
         if self.nz > 0:
-            # z_img = z.view(z.size(0), z.size(1), 1, 1).expand(z.size(0), z.size(1), x.size(2), x.size(3))
-            # breakpoint()
+
             z_img = F.interpolate(z, size=(x.size(2), x.size(3)), mode="bilinear", align_corners=False)
             x_and_z = torch.cat([x, z_img], 1)
         else:
@@ -372,9 +370,6 @@ class G_Unet_add_middle(nn.Module):
             feature_extractor.append(resBlock_noBN_f())
 
         self.feature_extractor = nn.Sequential(*feature_extractor)
-
-        # Kernel extractor
-        # self.kernel_extractor = KernelExtractor(opt)
 
         # kernel adapter
         self.adapter = KernelAdapter(
@@ -436,10 +431,6 @@ class KernelAdapter(nn.Module):
         upsample="basic",
     ):
         super(KernelAdapter, self).__init__()
-        # input_nc = opt["nf"]
-        # output_nc = opt["nf"]
-        # ngf = opt["nf"]
-        # norm_layer = arch_util.get_norm_layer(opt["Adapter"]["norm"])
 
         # construct unet structure
         unet_block = UnetSkipConnectionBlock(
@@ -459,7 +450,6 @@ class KernelAdapter(nn.Module):
 
     def forward(self, x, k):
         """Standard forward"""
-        # breakpoint()
         return self.model(x, k)
 
 
@@ -508,8 +498,7 @@ class UnetSkipConnectionBlock(nn.Module):
 
         if outermost:
             upconv = nn.ConvTranspose2d(inner_nc * 2, outer_nc, kernel_size=4, stride=2, padding=1)
-            # upsample = nn.Upsample(scale_factor=2, mode="bilinear", align_corners=True)
-            # upconv = DoubleConv(inner_nc * 2, outer_nc)
+
             up = [uprelu, upconv, nn.Tanh()]
             down = [downconv]
             self.down = nn.Sequential(*down)
@@ -517,16 +506,14 @@ class UnetSkipConnectionBlock(nn.Module):
             self.up = nn.Sequential(*up)
         elif innermost:
             upconv = nn.ConvTranspose2d(inner_nc * 2, outer_nc, kernel_size=4, stride=2, padding=1, bias=use_bias)
-            # upsample = nn.Upsample(scale_factor=2, mode="bilinear", align_corners=True)
-            # upconv = DoubleConv(inner_nc * 2, outer_nc)
+
             down = [downrelu, downconv]
             up = [uprelu, upconv, upnorm]
             self.down = nn.Sequential(*down)
             self.up = nn.Sequential(*up)
         else:
             upconv = nn.ConvTranspose2d(inner_nc * 2, outer_nc, kernel_size=4, stride=2, padding=1, bias=use_bias)
-            # upsample = nn.Upsample(scale_factor=2, mode="bilinear", align_corners=True)
-            # upconv = DoubleConv(inner_nc * 2, outer_nc)
+
             down = [downrelu, downconv, downnorm]
             up = [uprelu, upconv, upnorm]
             if use_dropout:
@@ -543,8 +530,7 @@ class UnetSkipConnectionBlock(nn.Module):
         elif self.innermost:  # add skip connections
             if noise is None:
                 noise = torch.randn((1, 512, 8, 8)).cuda() * 0.0007
-            # print("Noise = ",noise.shape)
-            # print("X = ",x.shape)
+
             return torch.cat((self.up(torch.cat((self.down(x), noise), dim=1)), x), dim=1)
         else:
             return torch.cat((self.up(self.submodule(self.down(x), noise)), x), dim=1)

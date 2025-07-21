@@ -15,11 +15,8 @@ class BasicConv(nn.Module):
             padding = kernel_size // 2 - 1
             layers.append(
                 nn.ConvTranspose2d(in_channel, out_channel, kernel_size, padding=padding, stride=stride, bias=bias)
-                # nn.Conv2d(in_channel, out_channel * (2 ** 2), 3, 1, padding=1, bias=bias)  # 亚像素卷积
-            )
-            # layers.append(
-            #     nn.PixelShuffle(upscale_factor=2)
-            # )
+                           )
+
         else:
             layers.append(nn.Conv2d(in_channel, out_channel, kernel_size, padding=padding, stride=stride, bias=bias))
         if norm:

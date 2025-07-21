@@ -5,8 +5,6 @@ from .lpips_loss import LPIPS
 from .vgg_loss import VGGLoss
 
 __all__ = ['GANLoss', 'LPIPS', 'VGGLoss']
-# pylint: disable=too-many-arguments
-# pylint: disable=redefined-builtin
 
 
 def cal_gradient_penalty(netD, real_data, fake_data, device, lambda_gp=0.1, type="mixed", constant=1.0):

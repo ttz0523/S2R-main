@@ -63,10 +63,6 @@ def _make_projector(im_res, cout, proj_type, expand=False):
     model = timm.create_model("tf_efficientnet_lite0", pretrained=True)
     pretrained = _make_efficientnet(model)
 
-    # determine resolution of feature maps, this is later used to calculate the number
-    # of down blocks in the discriminators. Interestingly, the best results are achieved
-    # by fixing this to 256, ie., we use the same number of down blocks per discriminator
-    # independent of the dataset resolution
     im_res = 256
     pretrained.RESOLUTIONS = [im_res // 4, im_res // 8, im_res // 16, im_res // 32]
     pretrained.CHANNELS = calc_channels(pretrained)

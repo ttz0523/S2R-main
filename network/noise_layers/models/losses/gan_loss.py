@@ -69,11 +69,7 @@ class GANLoss(nn.Module):
             loss (tensor): Loss value.
         """
         if isinstance(dis_output, list):
-            # For multi-scale discriminators.
-            # In this implementation, the loss is first averaged for each scale
-            # (batch size and number of locations) then averaged across scales,
-            # so that the gradient is not dominated by the discriminator that
-            # has the most output values (highest resolution).
+
             losses = []
             for dis_output_i in dis_output:
                 assert isinstance(dis_output_i, torch.Tensor)

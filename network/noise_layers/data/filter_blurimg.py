@@ -55,14 +55,6 @@ def calculate_psnr(img1, img2, crop_border, input_order="HWC", test_y_channel=Fa
     assert img1.shape == img2.shape, f"Image shapes are differnet: {img1.shape}, {img2.shape}."
     if input_order not in ["HWC", "CHW"]:
         raise ValueError(f"Wrong input_order {input_order}. Supported input_orders are " '"HWC" and "CHW"')
-    # if type(img1) == torch.Tensor:
-    #     if len(img1.shape) == 4:
-    #         img1 = img1.squeeze(0)
-    #     img1 = img1.detach().cpu().numpy().transpose(1,2,0)
-    # if type(img2) == torch.Tensor:
-    #     if len(img2.shape) == 4:
-    #         img2 = img2.squeeze(0)
-    #     img2 = img2.detach().cpu().numpy().transpose(1,2,0)
 
     img1 = reorder_image(img1, input_order=input_order)
     img2 = reorder_image(img2, input_order=input_order)
@@ -98,8 +90,8 @@ def psnr_pair(s1, s2):
     return calculate_psnr(img1, img2, 0)
 
 
-sharp_path = "/home/dangpb1/Research/datasets/RSBlur/RSBlur-b2b/train_sharp"
-blur_path = "/home/dangpb1/Research/datasets/RSBlur/RSBlur-b2b/trainA"
+sharp_path = "/"
+blur_path = "/"
 files = sorted(os.listdir(sharp_path))
 
 psnr_score = {}

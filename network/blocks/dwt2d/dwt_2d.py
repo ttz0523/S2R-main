@@ -6,18 +6,7 @@ import torch
 
 
 class DWTForward(nn.Module):
-    """ Performs a 2d DWT Forward decomposition of an image
 
-    Args:
-        J (int): Number of levels of decomposition
-        wave (str or pywt.Wavelet or tuple(ndarray)): Which wavelet to use.
-            Can be:
-            1) a string to pass to pywt.Wavelet constructor
-            2) a pywt.Wavelet class
-            3) a tuple of numpy arrays, either (h0, h1) or (h0_col, h1_col, h0_row, h1_row)
-        mode (str): 'zero', 'symmetric', 'reflect' or 'periodization'. The
-            padding scheme
-        """
     def __init__(self, J=1, wave='db1', mode='zero'):
         super().__init__()
         if isinstance(wave, str):
@@ -43,24 +32,7 @@ class DWTForward(nn.Module):
         self.mode = mode
 
     def forward(self, x):
-        """ Forward pass of the DWT.
 
-        Args:
-            x (tensor): Input of shape :math:`(N, C_{in}, H_{in}, W_{in})`
-
-        Returns:
-            (yl, yh)
-                tuple of lowpass (yl) and bandpass (yh) coefficients.
-                yh is a list of length J with the first entry
-                being the finest scale coefficients. yl has shape
-                :math:`(N, C_{in}, H_{in}', W_{in}')` and yh has shape
-                :math:`list(N, C_{in}, 3, H_{in}'', W_{in}'')`. The new
-                dimension in yh iterates over the LH, HL and HH coefficients.
-
-        Note:
-            :math:`H_{in}', W_{in}', H_{in}'', W_{in}''` denote the correctly
-            downsampled shapes of the DWT pyramid.
-        """
         yh = []
         ll = x
         mode = lowlevel.mode_to_int(self.mode)
@@ -76,17 +48,7 @@ class DWTForward(nn.Module):
 
 
 class DWTInverse(nn.Module):
-    """ Performs a 2d DWT Inverse reconstruction of an image
 
-    Args:
-        wave (str or pywt.Wavelet or tuple(ndarray)): Which wavelet to use.
-            Can be:
-            1) a string to pass to pywt.Wavelet constructor
-            2) a pywt.Wavelet class
-            3) a tuple of numpy arrays, either (h0, h1) or (h0_col, h1_col, h0_row, h1_row)
-        mode (str): 'zero', 'symmetric', 'reflect' or 'periodization'. The
-            padding scheme
-    """
     def __init__(self, wave='db1', mode='zero'):
         super().__init__()
         if isinstance(wave, str):
@@ -110,25 +72,7 @@ class DWTInverse(nn.Module):
         self.mode = mode
 
     def forward(self, coeffs):
-        """
-        Args:
-            coeffs (yl, yh): tuple of lowpass and bandpass coefficients, where:
-              yl is a lowpass tensor of shape :math:`(N, C_{in}, H_{in}',
-              W_{in}')` and yh is a list of bandpass tensors of shape
-              :math:`list(N, C_{in}, 3, H_{in}'', W_{in}'')`. I.e. should match
-              the format returned by DWTForward
 
-        Returns:
-            Reconstructed input of shape :math:`(N, C_{in}, H_{in}, W_{in})`
-
-        Note:
-            :math:`H_{in}', W_{in}', H_{in}'', W_{in}''` denote the correctly
-            downsampled shapes of the DWT pyramid.
-
-        Note:
-            Can have None for any of the highpass scales and will treat the
-            values as zeros (not in an efficient way though).
-        """
         yl, yh = coeffs
         ll = yl
         mode = lowlevel.mode_to_int(self.mode)
@@ -150,19 +94,7 @@ class DWTInverse(nn.Module):
 
 
 class SWTForward(nn.Module):
-    """ Performs a 2d Stationary wavelet transform (or undecimated wavelet
-    transform) of an image
 
-    Args:
-        J (int): Number of levels of decomposition
-        wave (str or pywt.Wavelet): Which wavelet to use. Can be a string to
-            pass to pywt.Wavelet constructor, can also be a pywt.Wavelet class,
-            or can be a two tuple of array-like objects for the analysis low and
-            high pass filters.
-        mode (str): 'zero', 'symmetric', 'reflect' or 'periodization'. The
-            padding scheme. PyWavelets uses only periodization so we use this
-            as our default scheme.
-        """
     def __init__(self, J=1, wave='db1', mode='periodization'):
         super().__init__()
         if isinstance(wave, str):
@@ -189,17 +121,7 @@ class SWTForward(nn.Module):
         self.mode = mode
 
     def forward(self, x):
-        """ Forward pass of the SWT.
 
-        Args:
-            x (tensor): Input of shape :math:`(N, C_{in}, H_{in}, W_{in})`
-
-        Returns:
-            List of coefficients for each scale. Each coefficient has
-            shape :math:`(N, C_{in}, 4, H_{in}, W_{in})` where the extra
-            dimension stores the 4 subbands for each scale. The ordering in
-            these 4 coefficients is: (A, H, V, D) or (ll, lh, hl, hh).
-        """
         ll = x
         coeffs = []
         # Do a multilevel transform

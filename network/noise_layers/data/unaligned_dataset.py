@@ -43,7 +43,6 @@ class UnalignedDataset(BaseDataset):
                 make_dataset(self.dir_B, opt.max_dataset_size)
             )  # load images from '/path/to/data/trainB'
 
-        # self.A_size = int(len(self.A_paths) * self.ratio)  # get the size of dataset A
         self.A_size = int(len(self.A_paths) * 1)  # get the size of dataset A
         print(self.A_size)
         self.A_paths = self.A_paths[: self.A_size]
