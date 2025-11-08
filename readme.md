@@ -1,5 +1,7 @@
 # S2R
 
+Official PyTorch implementation of the AAAI 2026 paper "Sim-to-Real: An Unsupervised Noise Layer for Screen-Camera Watermarking Robustness."
+
 This repository implements a S2R image watermarking framework. It supports model training, watermark encoding, physical shooting simulation, geometric correction, and message decoding.
 
 ## Training
