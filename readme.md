@@ -40,7 +40,7 @@ Script: `en_de_test.py`
 Configuration: `en_de_test_setting.json`
 
 ### Encoding
-Use the following configuration to embed messages into images:
+Use the following configuration to embed messages into images (default is noise-free; please implement custom noise injection if needed):
 ```json
 {
   "result_folder": "SCNG_test/",
